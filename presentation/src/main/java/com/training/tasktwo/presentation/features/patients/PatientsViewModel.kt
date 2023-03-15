@@ -29,17 +29,17 @@ class PatientsViewModel @Inject constructor(
         getPatients()
     }
 
-    private fun getPatients() {
-        viewModelScope.launch {
-            _patientsLoadingStateFlow.emit(true)
-            try {
-                _patientsStateFlow.emit(getPatientsSortedByNameUseCase())
-            } catch (e: Exception) {
-                _patientsErrorStateFlow.emit(e)
-            }
-            _patientsLoadingStateFlow.emit(false)
-        }
-    }
+     fun getPatients() {
+         viewModelScope.launch {
+             _patientsLoadingStateFlow.emit(true)
+             try {
+                 _patientsStateFlow.emit(getPatientsSortedByNameUseCase())
+             } catch (e: Exception) {
+                 _patientsErrorStateFlow.emit(e)
+             }
+             _patientsLoadingStateFlow.emit(false)
+         }
+     }
 
 
 }

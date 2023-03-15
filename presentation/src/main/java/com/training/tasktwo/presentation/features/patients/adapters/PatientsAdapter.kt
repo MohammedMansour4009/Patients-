@@ -1,14 +1,15 @@
 package com.training.tasktwo.presentation.features.patients.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.training.tasktwo.domain.model.patients.PatientRemoteModel
 import com.training.tasktwo.presentation.databinding.RowPatientBinding
 
-class PatientsAdapter(private val patients: List<PatientRemoteModel>) :
-    RecyclerView.Adapter<PatientsAdapter.PatientsViewHolder>() {
-
+class PatientsAdapter : ListAdapter<PatientRemoteModel, PatientsAdapter.PatientsViewHolder>(DiffCallback) {
 
     var indexLastSelected = -1
 
@@ -18,13 +19,10 @@ class PatientsAdapter(private val patients: List<PatientRemoteModel>) :
     }
 
     override fun onBindViewHolder(holder: PatientsViewHolder, position: Int) {
-        val model = patients[position]
+        val model = getItem(position)
         holder.bind(model, position)
     }
 
-    override fun getItemCount(): Int {
-        return patients.size
-    }
 
     inner class PatientsViewHolder(private val binding: RowPatientBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -38,17 +36,29 @@ class PatientsAdapter(private val patients: List<PatientRemoteModel>) :
                     // if not default
                     // notify last item
                     if (indexLastSelected != -1) {
-                        patients[indexLastSelected].selected = false
+                        getItem(position).selected = false
                         notifyItemChanged(indexLastSelected)
                     }
 
                     // notify new item
                     indexLastSelected = position
-                    patients[position].selected = true
+                    getItem(position).selected = true
                     notifyItemChanged(position)
                 }
 
             }
         }
+    }
+
+    private object DiffCallback : DiffUtil.ItemCallback<PatientRemoteModel>() {
+
+        override fun areItemsTheSame(oldItem: PatientRemoteModel, newItem: PatientRemoteModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: PatientRemoteModel, newItem: PatientRemoteModel): Boolean {
+            return oldItem == newItem
+        }
+
     }
 }
