@@ -14,6 +14,7 @@ import com.training.tasktwo.presentation.R
 import com.training.tasktwo.presentation.databinding.FragmentPatientsBinding
 import com.training.tasktwo.presentation.features.patients.adapters.PatientsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class PatientsFragment : Fragment() {
     private lateinit var binding: FragmentPatientsBinding
 
     private val viewModel: PatientsViewModel by viewModels()
+    private lateinit var adapter: PatientsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPatientsBinding.inflate(layoutInflater)
@@ -31,14 +33,27 @@ class PatientsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initAdapter()
         initObserver()
         initListener()
+    }
+
+    private fun initAdapter() {
+        adapter = PatientsAdapter()
+        binding.recyclerView.adapter = adapter
     }
 
     private fun initListener() {
         binding.fabAdd.setOnClickListener {
             findNavController().navigate(R.id.addPatientsFragment)
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getPatients()
+            lifecycleScope.launch {
+                delay(3000)
+                binding.swipeRefresh.isRefreshing = false
+            }
         }
     }
 
@@ -46,7 +61,7 @@ class PatientsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.patientsStateFlow.collect { response ->
                 if (response.isNotEmpty())
-                    binding.recyclerView.adapter = PatientsAdapter(response)
+                    adapter.submitList(response)
             }
         }
 
