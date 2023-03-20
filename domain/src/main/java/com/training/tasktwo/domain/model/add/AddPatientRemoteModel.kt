@@ -1,4 +1,4 @@
-package com.training.tasktwo.domain.model
+package com.training.tasktwo.domain.model.add
 
 data class AddPatientRemoteModel(
     val condition: String,

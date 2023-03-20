@@ -39,6 +39,15 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.MaterialCardView"
                 tools:src="@tools:sample/avatars" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_patient"
+                app:layout_constraintTop_toTopOf="@id/image_view_patient"
+                app:srcCompat="@drawable/ic_delete" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_view_name"
                 style="@style/TextAppearance.Material3.BodyLarge"

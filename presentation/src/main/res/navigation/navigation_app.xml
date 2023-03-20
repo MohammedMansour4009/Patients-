@@ -15,5 +15,10 @@
         android:name="com.training.tasktwo.presentation.features.add.AddPatientFragment"
         android:label="Add Patient Fragment" />
 
+    <fragment
+        android:id="@+id/detailsPatientFragment"
+        android:name="com.training.tasktwo.presentation.features.details.DetailsPatientFragment"
+        android:label="DetailsPatientFragment" />
+
 
 </navigation>

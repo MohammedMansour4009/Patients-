@@ -2,7 +2,7 @@ package com.training.tasktwo.presentation.features.add
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.training.tasktwo.domain.model.AddPatientRemoteModel
+import com.training.tasktwo.domain.model.add.AddPatientRemoteModel
 import com.training.tasktwo.domain.model.add.BodyAddPatientModel
 import com.training.tasktwo.domain.usecase.add.AddPatientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

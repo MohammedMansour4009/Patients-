@@ -1,6 +1,6 @@
 package com.training.tasktwo.domain.usecase.add
 
-import com.training.tasktwo.domain.model.AddPatientRemoteModel
+import com.training.tasktwo.domain.model.add.AddPatientRemoteModel
 import com.training.tasktwo.domain.model.add.BodyAddPatientModel
 import com.training.tasktwo.domain.repo.patients.PatientsRepository
 import javax.inject.Inject

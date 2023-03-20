@@ -5,11 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.training.tasktwo.domain.model.delete.PatientDeleteResponseModel
+import com.training.tasktwo.domain.model.patients.PatientRemoteModel
 import com.training.tasktwo.presentation.R
 import com.training.tasktwo.presentation.databinding.FragmentPatientsBinding
 import com.training.tasktwo.presentation.features.patients.adapters.PatientsAdapter
@@ -39,7 +44,7 @@ class PatientsFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = PatientsAdapter()
+        adapter = PatientsAdapter(::deletePatient, ::onClickItem)
         binding.recyclerView.adapter = adapter
     }
 
@@ -59,10 +64,7 @@ class PatientsFragment : Fragment() {
 
     private fun initObserver() {
         lifecycleScope.launch {
-            viewModel.patientsStateFlow.collect { response ->
-                if (response.isNotEmpty())
-                    adapter.submitList(response)
-            }
+            viewModel.patientsStateFlow.collect(::onSuccessPatients)
         }
 
         lifecycleScope.launch {
@@ -78,6 +80,35 @@ class PatientsFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launch {
+            viewModel.deletePatientLiveData.observe(viewLifecycleOwner, ::onPatientDeletedSuccess)
+        }
     }
+
+    private fun onPatientDeletedSuccess(response: PatientDeleteResponseModel?) {
+        if (response != null) {
+            Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+            viewModel.getPatients()
+        }
+    }
+
+    private fun onSuccessPatients(response: List<PatientRemoteModel>?) {
+        if (response?.isNotEmpty() == true) adapter.submitList(response)
+    }
+
+    private fun deletePatient(id: String) {
+        MaterialAlertDialogBuilder(requireContext()).setMessage("Are you sure  delete this patient")
+            .setNegativeButton("no") { dialog, _ ->
+                dialog.dismiss()
+            }.setPositiveButton("Yes") { dialog, _ ->
+                viewModel.deletePatient(id)
+                dialog.dismiss()
+            }.show()
+    }
+
+    private fun onClickItem(id: String) {
+        findNavController().navigate(R.id.detailsPatientFragment, bundleOf("id" to id))
+    }
+
 
 }

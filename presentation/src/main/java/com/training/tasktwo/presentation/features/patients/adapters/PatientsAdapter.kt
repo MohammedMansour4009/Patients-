@@ -1,6 +1,5 @@
 package com.training.tasktwo.presentation.features.patients.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.training.tasktwo.domain.model.patients.PatientRemoteModel
 import com.training.tasktwo.presentation.databinding.RowPatientBinding
 
-class PatientsAdapter : ListAdapter<PatientRemoteModel, PatientsAdapter.PatientsViewHolder>(DiffCallback) {
+class PatientsAdapter(
+    private val onDeletePatient: (id: String) -> Unit,
+    private val onClickItem: (id: String) -> Unit,
+) : ListAdapter<PatientRemoteModel, PatientsAdapter.PatientsViewHolder>(DiffCallback) {
 
     var indexLastSelected = -1
 
@@ -36,7 +38,7 @@ class PatientsAdapter : ListAdapter<PatientRemoteModel, PatientsAdapter.Patients
                     // if not default
                     // notify last item
                     if (indexLastSelected != -1) {
-                        getItem(position).selected = false
+                        getItem(indexLastSelected).selected = false
                         notifyItemChanged(indexLastSelected)
                     }
 
@@ -45,9 +47,14 @@ class PatientsAdapter : ListAdapter<PatientRemoteModel, PatientsAdapter.Patients
                     getItem(position).selected = true
                     notifyItemChanged(position)
                 }
+                onClickItem(model.id)
 
             }
+            binding.imageDelete.setOnClickListener {
+                onDeletePatient(model.id)
+            }
         }
+
     }
 
     private object DiffCallback : DiffUtil.ItemCallback<PatientRemoteModel>() {
