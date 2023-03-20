@@ -24,8 +24,6 @@ data class PatientRemoteModel(
 
     val photo: String,
 
-    val test: List<TestModel>,
-
     //local var
     var selected: Boolean = false
 )
