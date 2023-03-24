@@ -2,8 +2,9 @@ package com.training.tasktwo.domain.model.patients
 
 import com.google.gson.annotations.SerializedName
 
-data class PatientRemoteModel(
+data class PatientResponse(
 
+    @SerializedName("condition")
     val condition: String,
 
     @SerializedName("_id")
@@ -12,19 +13,24 @@ data class PatientRemoteModel(
     @SerializedName("name")
     val namePatient: String,
 
+    @SerializedName("address")
     val address: String,
 
+    @SerializedName("mobile")
     val mobile: String,
 
+    @SerializedName("email")
     val email: String,
 
+    @SerializedName("birthdate")
     val birthdate: String,
 
+    @SerializedName("gender")
     val gender: String,
 
+    @SerializedName("photo")
     val photo: String,
 
-    //local var
     var selected: Boolean = false
 ) {
 

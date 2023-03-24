@@ -13,8 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.training.tasktwo.domain.model.delete.PatientDeleteResponseModel
-import com.training.tasktwo.domain.model.patients.PatientRemoteModel
+import com.training.tasktwo.domain.model.delete.PatientDeleteResponse
+import com.training.tasktwo.domain.model.patients.PatientResponse
 import com.training.tasktwo.presentation.R
 import com.training.tasktwo.presentation.databinding.FragmentPatientsBinding
 import com.training.tasktwo.presentation.features.patients.adapters.PatientsAdapter
@@ -85,14 +85,14 @@ class PatientsFragment : Fragment() {
         }
     }
 
-    private fun onPatientDeletedSuccess(response: PatientDeleteResponseModel?) {
+    private fun onPatientDeletedSuccess(response: PatientDeleteResponse?) {
         if (response != null) {
             Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
             viewModel.getPatients()
         }
     }
 
-    private fun onSuccessPatients(response: List<PatientRemoteModel>?) {
+    private fun onSuccessPatients(response: List<PatientResponse>?) {
         if (response?.isNotEmpty() == true) adapter.submitList(response)
     }
 

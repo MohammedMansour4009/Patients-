@@ -3,7 +3,7 @@ package com.training.tasktwo.presentation.features.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.training.tasktwo.domain.model.patients.PatientRemoteModel
+import com.training.tasktwo.domain.model.patients.PatientResponse
 import com.training.tasktwo.domain.usecase.details.GetPatientByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ class DetailsViewModel @Inject constructor(
     state: SavedStateHandle
 ) : ViewModel() {
 
-    private val _detailsStateFlow: MutableStateFlow<PatientRemoteModel?> = MutableStateFlow(null)
+    private val _detailsStateFlow: MutableStateFlow<PatientResponse?> = MutableStateFlow(null)
     val detailsStateFlow = _detailsStateFlow.asStateFlow()
 
     private val _detailsLoadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)

@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.training.tasktwo.domain.model.patients.PatientRemoteModel" />
+            type="com.training.tasktwo.domain.model.patients.PatientResponse" />
 
     </data>
 

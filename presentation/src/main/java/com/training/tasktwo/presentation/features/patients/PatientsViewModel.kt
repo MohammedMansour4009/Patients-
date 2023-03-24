@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.training.tasktwo.domain.model.delete.PatientDeleteResponseModel
-import com.training.tasktwo.domain.model.patients.PatientRemoteModel
+import com.training.tasktwo.domain.model.delete.PatientDeleteResponse
+import com.training.tasktwo.domain.model.patients.PatientResponse
 import com.training.tasktwo.domain.usecase.delete.DeletePatientUseCase
 import com.training.tasktwo.domain.usecase.patients.GetPatientsSortedByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +20,11 @@ class PatientsViewModel @Inject constructor(
     private val deletePatientUseCase: DeletePatientUseCase
 ) : ViewModel() {
 
-    private val _patientsStateFlow: MutableStateFlow<List<PatientRemoteModel>> = MutableStateFlow(emptyList())
+    private val _patientsStateFlow: MutableStateFlow<List<PatientResponse>> = MutableStateFlow(emptyList())
     val patientsStateFlow = _patientsStateFlow.asStateFlow()
 
-    private val _deletePatientLiveData: MutableLiveData<PatientDeleteResponseModel> = MutableLiveData()
-    val deletePatientLiveData: LiveData<PatientDeleteResponseModel> = _deletePatientLiveData
+    private val _deletePatientLiveData: MutableLiveData<PatientDeleteResponse> = MutableLiveData()
+    val deletePatientLiveData: LiveData<PatientDeleteResponse> = _deletePatientLiveData
 
     private val _patientsLoadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
     val patientsLoadingStateFlow = _patientsLoadingStateFlow.asStateFlow()

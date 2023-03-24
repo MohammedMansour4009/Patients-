@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.training.tasktwo.core.base.BaseFragment
-import com.training.tasktwo.domain.model.add.BodyAddPatientModel
+import com.training.tasktwo.domain.model.add.AddPatientRequest
 import com.training.tasktwo.presentation.R
 import com.training.tasktwo.presentation.databinding.FragmentAddPatientBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,8 +42,8 @@ class AddPatientFragment : BaseFragment<FragmentAddPatientBinding>(R.layout.frag
         }
     }
 
-    private fun getInfoPatient(): BodyAddPatientModel {
-        return BodyAddPatientModel(
+    private fun getInfoPatient(): AddPatientRequest {
+        return AddPatientRequest(
             binding.editTextFullName.text.toString(),
             binding.editTextAddress.text.toString(),
             binding.editTextGender.text.toString(),

@@ -1,7 +1,5 @@
 package com.training.tasktwo.domain.model
 
-import com.training.tasktwo.domain.model.patients.PatientRemoteModel
-
 data class BaseWrapper<T>(
     val status: Int,
 
