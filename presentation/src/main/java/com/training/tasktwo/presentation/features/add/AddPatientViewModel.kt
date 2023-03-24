@@ -2,8 +2,8 @@ package com.training.tasktwo.presentation.features.add
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.training.tasktwo.domain.model.add.AddPatientRemoteModel
-import com.training.tasktwo.domain.model.add.BodyAddPatientModel
+import com.training.tasktwo.domain.model.add.AddPatientResponse
+import com.training.tasktwo.domain.model.add.AddPatientRequest
 import com.training.tasktwo.domain.usecase.add.AddPatientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ class AddPatientViewModel @Inject constructor(
     private val addPatientUseCase: AddPatientUseCase
 ) : ViewModel() {
 
-    private val _addPatientStateFlow: MutableStateFlow<AddPatientRemoteModel?> = MutableStateFlow(null)
+    private val _addPatientStateFlow: MutableStateFlow<AddPatientResponse?> = MutableStateFlow(null)
     val addPatientStateFlow = _addPatientStateFlow.asStateFlow()
 
     private val _addPatientLoadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -25,7 +25,7 @@ class AddPatientViewModel @Inject constructor(
     private val _addPatientErrorStateFlow: MutableStateFlow<Exception?> = MutableStateFlow(null)
     val addPatientStateErrorFlow = _addPatientErrorStateFlow.asStateFlow()
 
-    fun addPatient(bodyAddPatientModel: BodyAddPatientModel) {
+    fun addPatient(bodyAddPatientModel: AddPatientRequest) {
         viewModelScope.launch {
             _addPatientLoadingStateFlow.emit(true)
             try {

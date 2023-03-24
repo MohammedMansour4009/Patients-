@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.training.tasktwo.domain.model.add.BodyAddPatientModel
+import com.training.tasktwo.core.base.BaseFragment
+import com.training.tasktwo.domain.model.add.AddPatientRequest
+import com.training.tasktwo.presentation.R
 import com.training.tasktwo.presentation.databinding.FragmentAddPatientBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddPatientFragment : Fragment() {
+class AddPatientFragment : BaseFragment<FragmentAddPatientBinding>(R.layout.fragment_add_patient) {
 
-    private lateinit var binding: FragmentAddPatientBinding
     private val viewModel: AddPatientViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,8 +42,8 @@ class AddPatientFragment : Fragment() {
         }
     }
 
-    private fun getInfoPatient(): BodyAddPatientModel {
-        return BodyAddPatientModel(
+    private fun getInfoPatient(): AddPatientRequest {
+        return AddPatientRequest(
             binding.editTextFullName.text.toString(),
             binding.editTextAddress.text.toString(),
             binding.editTextGender.text.toString(),
@@ -53,6 +53,7 @@ class AddPatientFragment : Fragment() {
         )
     }
 
+    // long function make it more simple
     private fun infoIsValid(): Boolean {
         var isValid = true
 
