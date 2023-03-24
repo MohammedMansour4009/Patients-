@@ -1,4 +1,4 @@
-package com.training.tasktwo.core
+package com.training.tasktwo.core.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

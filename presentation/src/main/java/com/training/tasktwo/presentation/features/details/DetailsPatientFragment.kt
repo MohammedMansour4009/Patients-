@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.training.tasktwo.core.BaseFragment
+import com.training.tasktwo.core.base.BaseFragment
+import com.training.tasktwo.core.extension.addPoint
 import com.training.tasktwo.presentation.R
 import com.training.tasktwo.presentation.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,11 @@ class DetailsPatientFragment : BaseFragment<FragmentDetailsBinding>(R.layout.fra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
+        initView()
+    }
+
+    private fun initView() {
+        binding.textViewAbout.addPoint()
     }
 
 
